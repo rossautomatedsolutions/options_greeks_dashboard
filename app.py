@@ -15,7 +15,7 @@ from option_utils import convert_days_to_years, convert_percent_to_decimal
 
 # --- Layout config ---
 st.set_page_config(page_title="Options Greeks Visualizer", layout="wide")
-st.title("📈 Options Greeks Educational Dashboard")
+st.title("Options Greeks Educational Dashboard")
 
 # --- Sidebar Inputs ---
 st.sidebar.header("Option Inputs")
@@ -41,7 +41,7 @@ greek_view = st.selectbox("Greeks to Display", [
 ])
 
 # --- Toggle for 3D Plots ---
-show_surface = st.checkbox("✅ Show 3D Surface Plots")
+show_surface = st.checkbox("Show 3D Surface Plots")
 
 # --- Simulate data ---
 data = simulate_greek_vs_price(option_type, strike_price, T, r, sigma, price_range)
@@ -61,13 +61,13 @@ else:
 
 # --- Combined Greek Chart ---
 if selected:
-    st.subheader("📊 Combined Greek Chart")
+    st.subheader("Combined Greek Chart")
     fig = plot_all_greeks(data, selected)
     st.plotly_chart(fig, use_container_width=True)
 
 # --- Dashboard: Individual Greek Charts ---
 if selected:
-    st.subheader("📉 Individual Greek Charts")
+    st.subheader("Individual Greek Charts")
     cols = st.columns(3)  # 3 charts per row
     for idx, g in enumerate(selected):
         with cols[idx % 3]:
@@ -76,14 +76,14 @@ if selected:
             st.plotly_chart(fig, use_container_width=True, height=250)
 
 # --- Payoff Diagram ---
-st.subheader("💵 Payoff at Expiration")
+st.subheader("Payoff at Expiration")
 premium = black_scholes_price(option_type, underlying_price, strike_price, T, r, sigma)
 fig = plot_payoff(option_type, strike_price, price_range, premium)
 st.plotly_chart(fig, use_container_width=True)
 
 # --- Dashboard: 3D Surface Plots ---
 if show_surface:
-    st.subheader("🧊 3D Surface Charts")
+    st.subheader("3D Surface Charts")
 
     surface_funcs = [
         ("Option Price", lambda: plot_3d_option_price_surface(option_type, strike_price, T, r)),
